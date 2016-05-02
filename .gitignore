@@ -1,4 +1,3 @@
-**/*.js
+node_modules/*
 !server.js
 !lib/*.js
-**/*.map
