@@ -1,0 +1,103 @@
+build-menu  accordion.panel-group div.panel,
+build-menu  accordion.panel-group div.panel-heading {
+	border-radius : 0px;
+}
+
+build-menu  accordion.panel-group div.panel +.panel {
+	margin-top:0;
+}
+
+build-menu  accordion.panel-group div.panel-heading {
+	padding:0.5vh;
+	cursor:pointer;
+}
+build-menu  accordion.panel-group div.panel-title {
+	font-size: 14px;
+	height: 3vh;
+    line-height: 3vh;
+}
+
+build-menu  accordion.panel-group div.panel-body{
+	padding : 5px;
+}
+
+build-menu  accordion.panel-group div.panel-body .btn{ 
+	line-height: 20px;
+	padding: 3px;
+	margin-bottom : 5px;
+}
+
+build-menu  accordion.panel-group div.panel-body .icon {
+	vertical-align: middle;
+	padding-right: 3px;
+	background-size: 16px 16px;
+	margin: 0 auto;
+	width:16px;
+	height:16px;
+}
+
+build-menu  accordion.panel-group div.panel-body.subpanel-container {
+	width: 600px;
+	text-align: center;
+	padding: 5px 0px;
+	position:relative;
+}
+
+build-menu  accordion.panel-group div.panel-body .subpanel {
+	display: inline-block;
+	margin: 0px;
+	width: 298px;
+}
+
+build-menu  accordion.panel-group div.panel-body  .category {
+	background-image : linear-gradient(to right, #fff 0px, #e0e0e0 100%);
+	background-repeat: repeat-y;
+}
+
+build-menu  accordion.panel-group div.panel-body  .category .arrow {
+	position : absolute;
+	top : 13px;
+	right : 5px;
+}
+
+build-menu  accordion.panel-group div.panel-body  .retour {
+	padding: 0 0 0 5px;
+}
+
+build-menu  accordion.panel-group div.panel-body  .retour .btn {
+	padding: 0;
+    width: 26px;
+}
+
+build-menu  accordion.panel-group div.panel-body  .retour .height1 {
+	height: 44px;
+    line-height: 40px;
+}
+
+build-menu  accordion.panel-group div.panel-body  .retour .height2 {
+	height: 92px;
+    line-height: 88px;
+}
+
+@keyframes decale-left {
+    from {left: 0px;}
+    to {left: -300px;}
+}
+@keyframes decale-right {
+    from {left: -300px;}
+    to {left: 0px;}
+}
+
+build-menu  accordion.panel-group div.panel-body.decale {
+	animation-name: decale-left;
+    animation-duration: 500ms;
+    left: -300px;
+}
+
+build-menu  accordion.panel-group div.panel-body.normal {
+	animation-name: decale-right;
+    animation-duration: 500ms;
+    left: 0px;
+}
+
+

@@ -1,0 +1,163 @@
+* {
+	box-sizing: border-box;
+}
+
+img {
+	vertical-align:top;
+}
+
+reader {
+	position:relative;
+	display:block;
+}
+
+current-action {
+	display : block;
+	width : 285px;
+	height : 35px;
+	margin-top:15px;
+	color : white;
+}
+map-container.panel {	
+	display:block;
+	position:relative;
+	top:0;
+	left:0;
+	overflow:scroll;
+	min-width:50vw;
+	height:calc(100vh - 75px);
+	padding : 10px;
+	margin-bottom:0px;
+}
+
+map {	
+	display:block;
+	position:relative;
+	top:0;
+	left:0;
+	margin: auto;
+}
+build-menu {
+	display:block;
+	position:absolute;
+	top:72px;
+	right:0;
+	height:calc(100vh - 75px);
+    text-align: center;
+	min-height:460px;
+}
+
+build-menu .accordion-container  {
+	overflow : hidden;
+	width:300px;
+	height:100%;
+	position:relative;
+	margin-bottom:0px;
+}
+
+build-menu .accordion-container accordion, build-menu .accordion-container .panel-heading, .accordion-container .panel-body {
+    width: 300px;
+}
+build-menu .accordion-container > .panel-heading {
+	height: 6vh;
+	max-height:42px;
+    padding: 1vh;
+}
+
+build-menu .accordion-container .btn {
+	z-index:1000;
+}
+
+build-menu .accordion-container .menu-title {
+	float: left;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    width: 295px;
+}
+
+collapse-button {
+    position: absolute;
+    top: 10px;
+    left: -24px;
+}
+
+@keyframes collapse-menu {
+    from {width: 302px;}
+    to {width: 0px;}
+}
+@keyframes expand-menu {
+    from {width: 0;}
+    to {width: 302px;}
+}
+@keyframes collapse-acc {
+    from {width: 300px;}
+    to {width: 0px;}
+}
+@keyframes expand-acc {
+    from {width: 0;}
+    to {width: 300px;}
+}
+@keyframes collapse-map {
+    from {width:calc(100vw - 350px);}
+    to {width:calc(100vw - 50px);}
+}
+@keyframes expand-map {
+    from {width:calc(100vw - 50px);}
+    to {width:calc(100vw - 350px);}
+}
+build-menu.collapsed {
+	animation-name: collapse-menu;
+    animation-duration: 2s;
+	width: 0;
+}
+build-menu.expanded {
+	animation-name: expand-menu;
+    animation-duration: 2s;
+	width: 302px;
+}
+
+build-menu.collapsed .accordion-container {
+	animation-name: collapse-acc;
+    animation-duration: 2s;
+	width: 0;
+}
+build-menu.expanded .accordion-container {
+	animation-name: expand-acc;
+    animation-duration: 2s;
+	width: 300px;
+}
+
+map-container.collapsed {
+	animation-name: collapse-map;
+    animation-duration: 2s;
+	width:calc(100vw - 50px);
+}
+map-container.expanded {
+	animation-name: expand-map;
+    animation-duration: 2s;
+	width:calc(100vw - 350px);
+}
+
+div.panel-primary.panel-primary-clicked > .panel-heading {
+	background-image:linear-gradient(to top, #337ab7 0px, #2e6da4 100%);
+}
+
+@keyframes show-errors {
+    from {top:-50px;}
+    to {top:85px;}
+}
+
+.alert-container {
+	animation-duration: 500ms;
+    animation-name: show-errors;
+    left: calc(50% - 15vw);
+    position: absolute;
+    top: 85px;
+    width: 30vw;
+    z-index: 2000;
+}
+
+.alert-container-body {
+    padding: 15px 15px 0;
+}

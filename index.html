@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Emperor City Planner</title>
+    <!-- Stylesheet -->
+    <meta charset="UTF-8">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="node_modules/bootstrap/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	<link rel="stylesheet" type="text/css" href="menu.css">
+	<link rel="stylesheet" type="text/css" href="cells.css">
+	<link rel="stylesheet" type="text/css" href="buildings.css">
+  <link rel="stylesheet" type="text/css" href="contextMenu.css">
+  <link rel="stylesheet" type="text/css" href="map.css">
+	
+	
+    <!-- Libraries -->
+    <script src="node_modules/es6-shim/es6-shim.js"></script>
+    <script src="node_modules/angular2/bundles/angular2-polyfills.js"></script>
+	
+    <script src="node_modules/typescript/lib/typescript.js"></script>
+    <script src="node_modules/systemjs/dist/system.src.js"></script>
+    <script src="node_modules/rxjs/bundles/Rx.js"></script>
+    <script src="node_modules/angular2/bundles/angular2.dev.js"></script>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="node_modules/ng2-bootstrap/bundles/ng2-bootstrap.min.js"></script>
+    <script src="node_modules/filesaverjs/FileSaver.min.js"></script>
+    <script src="lib/html2canvas.js"></script>
+
+  </head>
+  <body ondragstart="return false;" ondrop="return false;">
+
+    <!-- Configure System.js, our module loader -->
+    <script>
+      System.config({
+	    transpiler: 'typescript', 
+        typescriptOptions: { emitDecoratorMetadata: true }, 
+        packages: {
+			app: {
+			  format: 'register',
+			  defaultExtension: 'js'
+			}
+		  },
+		  map: {
+			moment: 'node_modules/ng2-bootstrap/node_modules/moment/moment.js'
+		  }
+      });
+      System.import('app/main')
+            .then(null, console.error.bind(console));
+    </script>
+    <div style="padding:0px 10px">
+	<reader>App is loading...</reader> <!-- <--- Our app loads here! -->
+	</div>
+
+  </body>
+</html>

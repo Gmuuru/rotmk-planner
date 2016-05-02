@@ -1,0 +1,41 @@
+
+div.context-menu-container {
+	z-index:1000;
+}
+
+div.panel.context-menu {
+	width:130px;
+}
+
+div.panel.context-menu > .panel-heading {
+	height: 25px;
+    line-height: 14px;
+    padding: 4px;
+    text-align: center;
+}
+
+div.panel.context-menu > .menu-option {
+	margin :0;
+	border-radius:0px;	
+}
+
+div.panel.context-menu > .menu-option > .panel-heading {
+	height:20px;
+	line-height:14px;
+	border-radius:0px;	
+	padding : 2px 2px 2px 10px;
+	cursor:pointer;
+}
+
+
+div.panel.save-menu {
+	position:fixed;
+	left:calc(50vw - 125px);
+	width : 250px;
+	top:80px;
+	z-index: 1000;
+}
+
+div.panel.save-menu label {
+	font-weight : normal;
+}

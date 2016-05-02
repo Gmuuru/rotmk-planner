@@ -1,0 +1,493 @@
+map.background {
+	background-image : url("img/grass.gif");
+	background-repeat : repeat;
+	z-index:200;
+}
+
+map.background .hl-area {
+	z-index:400;
+	opacity:0.5;
+	cursor:default;
+}
+
+map.background .select-area {
+	z-index:800;
+	opacity:0.5;
+	cursor:default;
+	border:1px dotted black;
+	background-color : #d6ebf2;
+}
+
+map .building {
+	z-index:500;
+}
+
+map .building .hl {
+	z-index:600;
+}
+
+.delete {
+	background-image : url("img/delete.gif");
+}
+.select {
+	background-image : url("img/select.gif");
+}
+.grass {
+	background-image : url("img/grass.gif");
+}
+.dirt {
+	background-image : url("img/dirt.gif");
+}
+.rocks {
+	background-image : url("img/rocks.gif");
+}
+.water {
+	background-image : url("img/water.gif");
+}
+.dunes {
+	background-image : url("img/dunes.gif");
+}
+.saltmarsh {
+	background-image : url("img/saltmarsh.gif");
+}
+.ore {
+	background-image : url("img/ore.gif");
+}
+.quarry {
+	background-image : url("img/quarry.gif");
+}
+
+.m-empty {
+	background-image : url("img/m-empty.gif");
+}
+.m-food {
+	background-image : url("img/m-food.gif");
+}
+.m-hemp {
+	background-image : url("img/m-hemp.gif");
+}
+.m-silk {
+	background-image : url("img/m-silk.gif");
+}
+.m-pottery {
+	background-image : url("img/m-pottery.gif");
+}
+.m-laquer {
+	background-image : url("img/m-laquer.gif");
+}
+.m-tea {
+	background-image : url("img/m-tea.gif");
+}
+.mill {
+	background-image : url("img/mill.gif");
+}
+.warehouse {
+	background-image : url("img/warehouse.gif");
+}
+.tradepost {
+	background-image : url("img/tradepost.gif");
+}
+.tradepier-n {
+	background-image : url("img/tradepier-n.gif");
+}
+.tradepier-e {
+	background-image : url("img/tradepier-e.gif");
+}
+
+.improad-v {
+	background-image : url("img/improad-v.gif");
+}
+.improad-h {
+	background-image : url("img/improad-h.gif");
+}
+.market-h {
+	background-image : url("img/market-h.gif");
+}
+.market-v {
+	background-image : url("img/market-v.gif");
+}
+.market3-h {
+	background-image : url("img/market3-h.gif");
+}
+.market3-v {
+	background-image : url("img/market3-v.gif");
+}
+
+.grandroad-s {
+	background-image : url("img/grandroad-s.gif");
+}
+.grandroad-e {
+	background-image : url("img/grandroad-e.gif");
+}
+.grandroad-n {
+	background-image : url("img/grandroad-n.gif");
+}
+.grandroad-w {
+	background-image : url("img/grandroad-w.gif");
+}
+.road {
+	background-image : url("img/road.gif");
+}
+.roadblock {
+	background-image : url("img/roadblock.gif");
+}
+.rgate-h {
+	background-image : url("img/rw-gate-h.gif");
+}
+.rgate-v {
+	background-image : url("img/rw-gate-v.gif");
+}
+.gate-h {
+	background-image : url("img/gate-h.gif");
+}
+.gate-v {
+	background-image : url("img/gate-v.gif");
+}
+
+.garden1 {
+	background-image : url("img/garden1.gif");
+}
+.garden2 {
+	background-image : url("img/garden2.gif");
+}
+.garden3 {
+	background-image : url("img/garden3.gif");
+}
+.pond {
+	background-image : url("img/pond.gif");
+}
+.pavilion {
+	background-image : url("img/pavilion.gif");
+}
+.statue1 {
+	background-image : url("img/statue1.gif");
+}
+.statue2 {
+	background-image : url("img/statue2.gif");
+}
+.pinktree {
+	background-image : url("img/pinktree.gif");
+}
+.privategarden {
+	background-image : url("img/privategarden.gif");
+}
+.taichipark {
+	background-image : url("img/taichipark.gif");
+}
+
+.admincity-h {
+	background-image : url("img/admincity-h.gif");
+}
+.admincity-v {
+	background-image : url("img/admincity-v.gif");
+}
+.smelter {
+	background-image : url("img/smelter.gif");
+}
+.bronzewaremaker {
+	background-image : url("img/bronzewaremaker.gif");
+}
+.weaponsmith {
+	background-image : url("img/weaponsmith.gif");
+}
+.ancestor {
+	background-image : url("img/ancestor.gif");
+}
+.claypit {
+	background-image : url("img/claypit.gif");
+}
+.saltmine {
+	background-image : url("img/saltmine.gif");
+}
+.daoshrine {
+	background-image : url("img/daoshrine.gif");
+}
+.daotemple {
+	background-image : url("img/daotemple.gif");
+}
+.ferry-e {
+	background-image : url("img/ferry-e.gif");
+}
+.ferry-s {
+	background-image : url("img/ferry-s.gif");
+}
+.ferry-n {
+	background-image : url("img/ferry-n.gif");
+}
+.ferry-w {
+	background-image : url("img/ferry-w.gif");
+}
+.wharf-e {
+	background-image : url("img/wharf-e.gif");
+}
+.wharf-s {
+	background-image : url("img/wharf-s.gif");
+}
+.wharf-w {
+	background-image : url("img/wharf-w.gif");
+}
+.wharf-n {
+	background-image : url("img/wharf-n.gif");
+}
+.militarycamp-h {
+	background-image : url("img/militarycamp-h.gif");
+}
+.militarycamp-v {
+	background-image : url("img/militarycamp-v.gif");
+}
+.buddhashrine {
+	background-image : url("img/buddhashrine.gif");
+}
+.buddhatemple {
+	background-image : url("img/buddhatemple.gif");
+}
+.house-hi {
+	background-image : url("img/house-hi.gif");
+}
+.elite-hi {
+	background-image : url("img/elite-hi.gif");
+}
+.ironsmelter {
+	background-image : url("img/ironsmelter.gif");
+}
+.irrigationpump {
+	background-image : url("img/irrigationpump.gif");
+}
+.jadecarver {
+	background-image : url("img/jadecarver.gif");
+}
+.watchtower {
+	background-image : url("img/watchtower.gif");
+}
+.kiln {
+	background-image : url("img/kiln.gif");
+}
+.guardtower {
+	background-image : url("img/guardtower.gif");
+}
+.loggingshed {
+	background-image : url("img/loggingshed.gif");
+}
+.laquerwaremaker {
+	background-image : url("img/laquerwaremaker.gif");
+}
+.mint {
+	background-image : url("img/mint.gif");
+}
+.moneyprinter {
+	background-image : url("img/moneyprinter.gif");
+}
+.weaver {
+	background-image : url("img/weaver.gif");
+}
+.hunter {
+	background-image : url("img/hunter.gif");
+}
+.papermaker {
+	background-image : url("img/papermaker.gif");
+}
+.tree {
+	background-image : url("img/tree.gif");
+}
+.dramaschool {
+	background-image : url("img/dramaschool.gif");
+}
+.palace-h {
+	background-image : url("img/palace-h.gif");
+}
+.palace-v {
+	background-image : url("img/palace-v.gif");
+}
+.herbalist {
+	background-image : url("img/herbalist.gif");
+}
+.acupuncturist {
+	background-image : url("img/acupuncturist.gif");
+}
+.refinery {
+	background-image : url("img/refinery.gif");
+}
+.acrobatschool {
+	background-image : url("img/acrobatschool.gif");
+}
+.silkwormshed {
+	background-image : url("img/silkwormshed.gif");
+}
+.teashed {
+	background-image : url("img/teashed.gif");
+}
+.theater {
+	background-image : url("img/theater.gif");
+}
+.tower {
+	background-image : url("img/tower.gif");
+}
+.musicschool {
+	background-image : url("img/musicschool.gif");
+}
+.confusianacademy {
+	background-image : url("img/confusianacademy.gif");
+}
+.hempfarm {
+	background-image : url("img/hempfarm.gif");
+}
+.farm {
+	background-image : url("img/farm.gif");
+}
+.wheat {
+	background-image : url("img/wheat.gif");
+}
+.h-well {
+	background-image : url("img/well.gif");
+}
+.rice {
+	background-image : url("img/rice.gif");
+}
+.hemp {
+	background-image : url("img/hemp.gif");
+}
+.soybeans {
+	background-image : url("img/soybeans.gif");
+}
+.cabbage {
+	background-image : url("img/cabbage.gif");
+}
+.millet {
+	background-image : url("img/millet.gif");
+}
+.tea {
+	background-image : url("img/tea.gif");
+}
+.silk {
+	background-image : url("img/silk.gif");
+}
+.laquer {
+	background-image : url("img/laquer.gif");
+}
+.taxoffice {
+	background-image : url("img/taxoffice.gif");
+}
+.stoneworks {
+	background-image : url("img/stoneworks.gif");
+}
+.masonsguild {
+	background-image : url("img/masonsguild.gif");
+}
+.ceramistsguild {
+	background-image : url("img/ceramistsguild.gif");
+}
+.carpenterguild {
+	background-image : url("img/carpenterguild.gif");
+}
+.workcamp {
+	background-image : url("img/workcamp.gif");
+}
+
+.rw {
+	background-image : url("img/rw-h.gif");
+}
+.rw-h {
+	background-image : url("img/rw-h.gif");
+}
+.rw-v {
+	background-image : url("img/rw-v.gif");
+}
+.rw-x {
+	background-image : url("img/rw-x.gif");
+}
+.rw-l1 {
+	background-image : url("img/rw-l1.gif");
+}
+.rw-l2 {
+	background-image : url("img/rw-l2.gif");
+}
+.rw-l3 {
+	background-image : url("img/rw-l3.gif");
+}
+.rw-l4 {
+	background-image : url("img/rw-l4.gif");
+}
+.rw-t1 {
+	background-image : url("img/rw-t1.gif");
+}
+.rw-t2 {
+	background-image : url("img/rw-t2.gif");
+}
+.rw-t3 {
+	background-image : url("img/rw-t3.gif");
+}
+.rw-t4 {
+	background-image : url("img/rw-t4.gif");
+}
+.wall {
+	background-image : url("img/wall-h.gif");
+}
+.wall-h {
+	background-image : url("img/wall-h.gif");
+}
+.wall-v {
+	background-image : url("img/wall-v.gif");
+}
+.wall-x {
+	background-image : url("img/wall-x.gif");
+}
+.wall-l1 {
+	background-image : url("img/wall-l1.gif");
+}
+.wall-l2 {
+	background-image : url("img/wall-l2.gif");
+}
+.wall-l3 {
+	background-image : url("img/wall-l3.gif");
+}
+.wall-l4 {
+	background-image : url("img/wall-l4.gif");
+}
+.wall-t1 {
+	background-image : url("img/wall-t1.gif");
+}
+.wall-t2 {
+	background-image : url("img/wall-t2.gif");
+}
+.wall-t3 {
+	background-image : url("img/wall-t3.gif");
+}
+.wall-t4 {
+	background-image : url("img/wall-t4.gif");
+}
+.id {
+	background-image : url("img/id-h.gif");
+}
+.id-h {
+	background-image : url("img/id-h.gif");
+}
+.id-v {
+	background-image : url("img/id-v.gif");
+}
+.id-x {
+	background-image : url("img/id-x.gif");
+}
+.id-l1 {
+	background-image : url("img/id-l1.gif");
+}
+.id-l2 {
+	background-image : url("img/id-l2.gif");
+}
+.id-l3 {
+	background-image : url("img/id-l3.gif");
+}
+.id-l4 {
+	background-image : url("img/id-l4.gif");
+}
+.id-t1 {
+	background-image : url("img/id-t1.gif");
+}
+.id-t2 {
+	background-image : url("img/id-t2.gif");
+}
+.id-t3 {
+	background-image : url("img/id-t3.gif");
+}
+.id-t4 {
+	background-image : url("img/id-t4.gif");
+}
