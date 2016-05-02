@@ -5,5 +5,23 @@
 	"scripts": {
 	  "start": "node server.js"
 	},
-	"main": "server.js"
+	"main": "server.js",
+	"license": "ISC",
+	"dependencies": {
+		"angular2": "2.0.0-beta.16",
+		"bootstrap": "3.3.6",
+		"es6-promise": "3.0.2",
+		"es6-shim": "0.35.0",
+		"filesaverjs": "^0.2.2",
+		"jquery": "2.2.3",
+		"ng2-bootstrap": "^1.0.15",
+		"reflect-metadata": "0.1.2",
+		"rxjs": "5.0.0-beta.2",
+		"systemjs": "0.19.6",
+		"typescript": "^1.8.10",
+		"zone.js": "^0.6.12"
+	},
+	"devDependencies": {
+		"traceur-loader": "0.6.3"
+	}
 }
