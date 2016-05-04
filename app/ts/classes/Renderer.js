@@ -30,9 +30,11 @@ System.register(["angular2/core", 'rxjs/Subject', "./ProgressiveLoader", "../com
             Renderer = (function () {
                 function Renderer(pl) {
                     this.pl = pl;
+                    this._loadIsDoneSource = new Subject_1.Subject();
                     this._zoneHighlightSource = new Subject_1.Subject();
                     this._cellUpdateSource = new Subject_1.Subject();
                     this._resetSource = new Subject_1.Subject();
+                    this.loadIsDone$ = this._loadIsDoneSource.asObservable();
                     this.zoneHightlight$ = this._zoneHighlightSource.asObservable();
                     this.cellUpdate$ = this._cellUpdateSource.asObservable();
                     this.reset$ = this._resetSource.asObservable();
@@ -40,7 +42,10 @@ System.register(["angular2/core", 'rxjs/Subject', "./ProgressiveLoader", "../com
                     this.currentSource = [];
                 }
                 Renderer.prototype.loadMap = function (lines) {
-                    this.reset();
+                    this.lines = [];
+                    this.storage = [];
+                    this.currentSource = this.storage;
+                    this._loadIsDoneSource.next(lines);
                     this.storage = this.render(lines);
                     this.currentSource = this.storage;
                     this.pl.load(this.storage, this.lines);
@@ -190,11 +195,6 @@ System.register(["angular2/core", 'rxjs/Subject', "./ProgressiveLoader", "../com
                         }
                     }
                     return res;
-                };
-                Renderer.prototype.reset = function () {
-                    this.lines = [];
-                    this.storage = [];
-                    this.currentSource = this.storage;
                 };
                 Renderer.prototype.deleteBuilding = function (cell) {
                     var _this = this;

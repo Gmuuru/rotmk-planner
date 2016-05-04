@@ -244,7 +244,7 @@ System.register([], function(exports_1, context_1) {
             Cell.prototype.MAP_TABLE["v"] = new Building("v", "hempfarm", 2, 2, "Hemp Farm", "Hemp", "build");
             Cell.prototype.MAP_TABLE["V"] = new Building("V", "farm", 3, 3, "Farm House", "Farm", "build");
             Cell.prototype.MAP_TABLE["w"] = new Building("w", "wheat", 1, 1, "Wheat", "Wheat", "splash");
-            Cell.prototype.MAP_TABLE["W"] = new Building("W", "h-well", 2, 2, "Well", "Well", "splash");
+            Cell.prototype.MAP_TABLE["W"] = new Building("W", "h-well", 2, 2, "Well", "Well", "build");
             Cell.prototype.MAP_TABLE["å"] = new Building("å", "rice", 1, 1, "Rice", "Rice", "splash");
             Cell.prototype.MAP_TABLE["é"] = new Building("é", "hemp", 1, 1, "Hemp", "Hemp", "splash");
             Cell.prototype.MAP_TABLE["è"] = new Building("è", "soybeans", 1, 1, "Soybeans", "Beans", "splash");

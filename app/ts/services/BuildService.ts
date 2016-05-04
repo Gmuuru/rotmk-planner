@@ -64,7 +64,6 @@ export class BuildService extends GenericService {
 	}
 	
 	alertOnMouseUp($event, cell : Cell) :void {
-		console.log("building ? ");
 		if($event.button == 0 && cell && cell == this.originCell){
 			//left click
 			if(this.pathOK){

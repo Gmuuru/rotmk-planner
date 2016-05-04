@@ -132,10 +132,10 @@ map .building .hl {
 	background-image : url("img/roadblock.gif");
 }
 .rgate-h {
-	background-image : url("img/rw-gate-h.gif");
+	background-image : url("img/rgate-h.gif");
 }
 .rgate-v {
-	background-image : url("img/rw-gate-v.gif");
+	background-image : url("img/rgate-v.gif");
 }
 .gate-h {
 	background-image : url("img/gate-h.gif");
@@ -338,7 +338,7 @@ map .building .hl {
 	background-image : url("img/wheat.gif");
 }
 .h-well {
-	background-image : url("img/well.gif");
+	background-image : url("img/h-well.gif");
 }
 .rice {
 	background-image : url("img/rice.gif");

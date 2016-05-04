@@ -37,6 +37,7 @@ System.register(['rxjs/Subject', "./GenericService"], function(exports_1, contex
                     this.init();
                 }
                 SelectService.prototype.init = function (args) {
+                    this.highlightedCells = [];
                     console.log("SelectService initialized");
                 };
                 SelectService.prototype.alertCellMouseEvent = function ($event, action, cell) {
@@ -55,6 +56,7 @@ System.register(['rxjs/Subject', "./GenericService"], function(exports_1, contex
                         }
                     }
                     catch (err) {
+                        console.log(err);
                         this.HQ.log(err);
                     }
                 };
@@ -100,6 +102,9 @@ System.register(['rxjs/Subject', "./GenericService"], function(exports_1, contex
                 };
                 SelectService.prototype.highlightCells = function () {
                     var _this = this;
+                    if (!this.originCell || !this.currentCell) {
+                        return;
+                    }
                     var cells = this.renderer.getCellsInSquare(this.originCell.lineIndex, this.originCell.colIndex, this.currentCell.lineIndex, this.currentCell.colIndex);
                     if (cells != null) {
                         //no out of bounds 

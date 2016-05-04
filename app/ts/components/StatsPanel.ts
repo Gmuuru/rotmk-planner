@@ -60,8 +60,9 @@ export class StatsPanel {
 
 		Object.keys(buildings).forEach(
 			(key) => {
-			    var building:Building = buildings[key].getBuilding();
-			    if(Stats.getBuildingData(building.char)){
+
+			    var building:Building = Cell.getBuildingData(buildings[key].char);
+			    if(building && Stats.getBuildingData(building.char)){
 			    	if(!res.counts[building.label]){
 			    		res.names.push(building.label);
 			    		res.counts[building.label] = {'char': building.char, 'name':building.label, 'count':0};

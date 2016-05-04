@@ -1,4 +1,4 @@
-System.register(["angular2/core", "../services/Headquarter", "angular2/common", "../classes/Stats"], function(exports_1, context_1) {
+System.register(["angular2/core", "../services/Headquarter", "../components/Cell", "angular2/common", "../classes/Stats"], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -10,7 +10,7 @@ System.register(["angular2/core", "../services/Headquarter", "angular2/common", 
     var __metadata = (this && this.__metadata) || function (k, v) {
         if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
     };
-    var core_1, Headquarter_1, common_1, Stats_1;
+    var core_1, Headquarter_1, Cell_1, common_1, Stats_1;
     var StatsPanel;
     return {
         setters:[
@@ -19,6 +19,9 @@ System.register(["angular2/core", "../services/Headquarter", "angular2/common", 
             },
             function (Headquarter_1_1) {
                 Headquarter_1 = Headquarter_1_1;
+            },
+            function (Cell_1_1) {
+                Cell_1 = Cell_1_1;
             },
             function (common_1_1) {
                 common_1 = common_1_1;
@@ -53,8 +56,8 @@ System.register(["angular2/core", "../services/Headquarter", "angular2/common", 
                 StatsPanel.prototype.parseBuildings = function (buildings) {
                     var res = { counts: {}, names: [] };
                     Object.keys(buildings).forEach(function (key) {
-                        var building = buildings[key].getBuilding();
-                        if (Stats_1.Stats.getBuildingData(building.char)) {
+                        var building = Cell_1.Cell.getBuildingData(buildings[key].char);
+                        if (building && Stats_1.Stats.getBuildingData(building.char)) {
                             if (!res.counts[building.label]) {
                                 res.names.push(building.label);
                                 res.counts[building.label] = { 'char': building.char, 'name': building.label, 'count': 0 };

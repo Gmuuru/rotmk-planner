@@ -13,9 +13,12 @@ export class Renderer {
 	storage : Line[];
 	currentSource : Line[];
 
+	private _loadIsDoneSource = new Subject<Line[]>();
 	private _zoneHighlightSource = new Subject<{action:string, cells:Cell[], shape:string}>();
 	private _cellUpdateSource = new Subject<{action:string, cell:Cell}>();
 	private _resetSource = new Subject<string>();
+
+	loadIsDone$ = this._loadIsDoneSource.asObservable();
 	zoneHightlight$ = this._zoneHighlightSource.asObservable();
 	cellUpdate$ = this._cellUpdateSource.asObservable();
 	reset$ = this._resetSource.asObservable();
@@ -28,16 +31,20 @@ export class Renderer {
 
 	loadMap(lines : Line[]) :void {
 	
-		this.reset();
+		this.lines = [];
+		this.storage = [];
+		this.currentSource = this.storage;
+		this._loadIsDoneSource.next(lines);
 		this.storage = this.render(lines);
 		this.currentSource = this.storage;
 		
 		this.pl.load(this.storage, this.lines);
 		
 		this.currentSource = this.lines;
+
 		
 	}
-	
+
 	render(lines : Line[]){
 		this._resetSource.next("reset");
 		var bck = this.currentSource;
@@ -51,7 +58,6 @@ export class Renderer {
 		);
 		lines = this.currentSource;
 		this.currentSource = bck;
-
 		return lines;
 	}
 
@@ -198,12 +204,6 @@ export class Renderer {
 			}
 		}
 		return res;
-	}
-	
-	reset(){
-		this.lines = [];
-		this.storage = [];
-		this.currentSource = this.storage;
 	}
 	
 	deleteBuilding(cell:Cell) :void {

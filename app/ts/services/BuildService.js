@@ -80,7 +80,6 @@ System.register(["angular2/core", "../classes/Renderer", "./GenericService", "./
                 };
                 BuildService.prototype.alertOnMouseUp = function ($event, cell) {
                     var _this = this;
-                    console.log("building ? ");
                     if ($event.button == 0 && cell && cell == this.originCell) {
                         //left click
                         if (this.pathOK) {

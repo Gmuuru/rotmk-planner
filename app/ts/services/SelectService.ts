@@ -33,6 +33,7 @@ export class SelectService extends GenericService {
 	}
 	
 	init( args? : string[] ) :void {
+		this.highlightedCells = [];
 		console.log(`SelectService initialized`);
 	}
 	
@@ -51,6 +52,7 @@ export class SelectService extends GenericService {
 				console.log(`Error, unknown action ${action} for provider SelectService`);
 			}
 		} catch(err){
+			console.log(err);
 			this.HQ.log(err);
 		}
 	}
@@ -106,6 +108,9 @@ export class SelectService extends GenericService {
 	
 	highlightCells() :void {
 		
+		if(!this.originCell || !this.currentCell){
+			return;
+		}
 		
 		var cells = this.renderer.getCellsInSquare(
 			this.originCell.lineIndex,
