@@ -18,8 +18,12 @@ current-action {
 	margin-top:15px;
 	color : white;
 }
-map-container.panel {	
+
+map-container {
 	display:block;
+}
+
+map-container.panel {	
 	position:relative;
 	top:0;
 	left:0;

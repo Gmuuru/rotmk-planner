@@ -1,0 +1,53 @@
+
+.stats .tab-container {
+	margin: 15px 0;
+    padding: 15px;
+}
+
+.stats .select-container, .stats .select-container select {
+	text-align:center;
+}
+
+.stats table.housing-table, .stats table.total-table {
+	width:100%;
+}
+
+.stats table.buildings-table {
+	width:25vw;
+	min-width:250px;
+	margin:auto;
+}
+
+.stats table, .stats table tr, .stats table tr th, .stats table tr td  {
+	border-color:#cccccc;
+}
+
+.stats table tr.head-line {
+	background: linear-gradient(to bottom, #337ab7 0px, #2e6da4 100%);
+	color:white;
+}
+.stats table tr.head-line th {
+	font-weight:normal;
+}
+
+.stats table tr th {
+	text-align:center;
+}
+
+.stats table tr th, .stats table tr td {
+	padding:3px;
+}
+
+.stats table tr .separator {
+	background-color:#cccccc;
+	padding:3px 1px;
+}
+
+
+.stats table.housing-table tr th:first-child {
+	width:60px;
+}
+
+.stats table.housing-table tr td:not(:first-child):not(.text-left):not(.text-center) {
+	text-align:right;
+}

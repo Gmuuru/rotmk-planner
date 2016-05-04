@@ -333,7 +333,6 @@ System.register([], function(exports_1, context_1) {
             Cell.prototype.MAP_TABLE["Y"] = new Building("Y", "ceramistsguild", 2, 2, "Ceramist Guild", "Ceram.", "build");
             Cell.prototype.MAP_TABLE["z"] = new Building("z", "carpenterguild", 2, 2, "Carpenter Guild", "Carp.", "build");
             Cell.prototype.MAP_TABLE["Z"] = new Building("Z", "workcamp", 4, 4, "Labourers' Camp", "Lab Camp", "build");
-            console.log("testing char ç : ", Cell.prototype.MAP_TABLE['ç']);
         }
     }
 });

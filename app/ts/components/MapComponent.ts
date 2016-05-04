@@ -85,6 +85,7 @@ export class MapComponent {
 							break;
 						}
 					}
+					this.HQ.broadcastBuildingList(this.buildings);
 				} catch (err) {
 					this.HQ.log(err);
 				}

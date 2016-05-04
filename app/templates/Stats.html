@@ -1,0 +1,212 @@
+<div class="stats panel panel-primary">
+  	<div class="panel-heading">
+		<span class="menu-title">Stats</span>
+  		<span class="btn btn-primary btn-xs glyphicon glyphicon-remove pull-right" (click)="close()"></span>
+  	</div>
+  	<div class="panel-body">
+  		<div class="row form-group form-container">
+			<form [ngFormModel]="diffForm">
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-container">
+					<label>Difficulty</label>
+					<select class="form-control" ngControl="difficulty">
+                    	<option *ngFor="#item of stats.difficulties; #i = index" [value]="i" >{{item}}</option>
+                	</select>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-container">
+					<label>Tax Rate</label>
+					<select class="form-control" ngControl="taxrate">
+                    	<option *ngFor="#item of stats.taxAndWageRates; #i = index" [value]="i" >{{item}}</option>
+                	</select>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 select-container">
+					<label>Wage Rate</label>
+					<select class="form-control" ngControl="wagerate">
+                    	<option *ngFor="#item of stats.taxAndWageRates; #i = index" [value]="i" >{{item}}</option>
+                	</select>
+				</div>
+			</form>
+		</div>
+  		<ul class="nav nav-tabs stats-tabs">
+		  <li [ngClass]="{'active':activeTab == 'buildings'}"><a href="javascript:void(0);" (click)="selectTab('buildings')">Buildings</a></li>
+		  <li [ngClass]="{'active':activeTab == 'consumption'}"><a href="javascript:void(0);" (click)="selectTab('consumption')">Consumption</a></li>
+		  <li [ngClass]="{'active':activeTab == 'production'}"><a href="javascript:void(0);" (click)="selectTab('production')">Workforce</a></li>
+		  <li [ngClass]="{'active':activeTab == 'totals'}"><a href="javascript:void(0);" (click)="selectTab('totals')">Totals</a></li>
+		</ul>
+		<div *ngIf="activeTab == 'buildings'" class="tab-container panel panel-default row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+				<table class="buildings-table" border=1>
+		      			<tr class="head-line">
+		      				<th>Building</th>
+		      				<th>Count</th>
+		      			</tr>
+		      			<tr *ngFor="#buildingName of buildings.names; #i = index" [hidden]="i >= (buildings.names.length / 2)">
+		      				<td>{{buildings.counts[buildingName].name}}</td>
+		      				<td>{{buildings.counts[buildingName].count}}</td>
+		      			</tr>
+		      	</table>
+	      	</div>
+	      	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+				<table class="buildings-table" border=1>
+		      			<tr class="head-line">
+		      				<th>Building</th>
+		      				<th>Count</th>
+		      			</tr>
+		      			<tr *ngFor="#buildingName of buildings.names; #i = index" [hidden]="i < (buildings.names.length / 2)">
+		      				<td>{{buildings.counts[buildingName].name}}</td>
+		      				<td>{{buildings.counts[buildingName].count}}</td>
+		      			</tr>
+		      	</table>
+	      	</div>
+		</div>
+		<div *ngIf="activeTab == 'consumption'" class="tab-container panel panel-default">
+			<div class="panel row ">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+					<label>Common Housing</label> : {{!buildings.counts['Common Housing'] ? 0 : buildings.counts['Common Housing'].count}}
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+					<label>Elite Housing</label> : {{!buildings.counts['Elite Housing'] ? 0 : buildings.counts['Elite Housing'].count}}
+				</div>
+			</div>
+			<div>
+	      		<table class="housing-table" border=1>
+	      			<tr class="head-line">
+	      				<th colspan="7">Population</th>
+	      				<th class="separator"></th>
+	      				<th colspan="6">Consumption</th>
+	      			</tr>
+	      			<tr class="head-line">
+	      				<th>Level</th>
+	      				<th>Housing Type</th>
+	      				<th>Pop</th>
+	      				<th>Workers</th>
+	      				<th>Taxes</th>
+	      				<th>Wages</th>
+	      				<th>Profit</th>
+	      				<th class="separator"></th>
+	      				<th>Food</th>
+	      				<th>Hemp</th>
+	      				<th>Ceramics</th>
+	      				<th>Silk</th>
+	      				<th>Wares</th>
+	      				<th>Tea</th>
+	      			</tr>
+	      			<tr *ngFor="#item of getCommonHousingData(); #ind = index">
+
+	      				<td class="text-center" rowspan="8" *ngIf="ind == 0">Common</td>
+	      				<td class="text-left">{{item.house}}</td>
+	      				<td>{{item.pop}}</td>
+	      				<td>{{item.workers}}</td>
+	      				<td>{{item.taxes}}</td>
+	      				<td>{{item.wages}}</td>
+	      				<td>{{item.profit}}</td>
+	      				<td class="separator"></td>
+	      				<td>{{item.food}}</td>
+	      				<td>{{item.hemp}}</td>
+	      				<td>{{item.ceram}}</td>
+	      				<td>{{item.silk}}</td>
+	      				<td>{{item.wares}}</td>
+	      				<td>{{item.tea}}</td>
+	      			</tr>
+	      			<tr *ngFor="#item of getEliteHousingData(); #ind = index">
+	      				<td class="text-center" rowspan="5" *ngIf="ind == 0">Elite</td>
+	      				<td class="text-left">{{item.house}}</td>
+	      				<td>{{item.pop}}</td>
+	      				<td>{{item.workers}}</td>
+	      				<td>{{item.taxes}}</td>
+	      				<td>{{item.wages}}</td>
+	      				<td>{{item.profit}}</td>
+	      				<td class="separator"></td>
+	      				<td>{{item.food}}</td>
+	      				<td>{{item.hemp}}</td>
+	      				<td>{{item.ceram}}</td>
+	      				<td>{{item.silk}}</td>
+	      				<td>{{item.wares}}</td>
+	      				<td>{{item.tea}}</td>
+	      			</tr>
+	      		</table>
+      		</div>
+  		</div>
+
+  		<div *ngIf="activeTab == 'production'" class="tab-container panel panel-default row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+				<table class="buildings-table" border=1>
+	      			<tr class="head-line">
+	      				<th>Building</th>
+	      				<th>Total workers</th>
+	      			</tr>
+	      			<tr *ngFor="#building of workersByBuilding; #i = index" [hidden]="i >= (workersByBuilding.length / 2)">
+      				<td>{{building.name}}</td>
+      				<td>{{building.workers}}</td>
+	      			</tr>
+		      	</table>
+	      	</div>
+	      	<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+				<table class="buildings-table" border=1>
+	      			<tr class="head-line">
+	      				<th>Building</th>
+	      				<th>Total Workers</th>
+	      			</tr>
+	      			<tr *ngFor="#building of workersByBuilding; #i = index" [hidden]="i < (workersByBuilding.length / 2)">
+	      				<td>{{building.name}}</td>
+	      				<td>{{building.workers}}</td>
+	      			</tr>
+		      	</table>
+	      	</div>
+		</div>
+		<div *ngIf="activeTab == 'totals'" class="tab-container panel panel-default row">
+			<table class="total-table" border=1>
+      			<tr class="">
+      				<th colspan="9">Population</th>
+      			</tr>
+      			<tr class="head-line">
+      				<th>Max Pop</th>
+      				<th>Max Workers</th>
+      				<th>Max Taxes</th>
+      				<th>Max Wages</th>
+      				<th>Max Profit</th>
+      				<th class="separator"></th>
+      				<th>Jobs</th>
+      				<th class="separator"></th>
+      				<th>Employment</th>
+      			</tr>
+      			<tr>
+      				<td class="text-right">{{totals.pop}}</td>
+      				<td>{{totals.workers}}</td>
+      				<td>{{totals.taxes}}</td>
+      				<td>{{totals.wages}}</td>
+      				<td>{{totals.profit}}</td>
+      				<td class="separator"></td>
+      				<td>{{totals.jobs}}</td>
+      				<td class="separator"></td>
+      				<td class="text-center" *ngIf="totals.jobs > totals.workers">{{totals.jobs - totals.workers}} workers needed</td>
+      				<td class="text-center" *ngIf="totals.jobs == totals.workers">No workers needed</td>
+      				<td class="text-center" *ngIf="totals.jobs < totals.workers">{{totals.workers - totals.jobs}} unemployed
+      					({{round((totals.workers - totals.jobs)*100 / totals.workers)}}%)</td>
+      			</tr>
+      		</table>
+      		<br>
+      		<table class="total-table" border=1>
+      			<tr class="">
+      				<th colspan="6">Consumption</th>
+      			</tr>
+      			<tr class="head-line">
+      				<th>Max Food</th>
+      				<th>Max Hemp</th>
+      				<th>Max Ceramics</th>
+      				<th>Max Silk</th>
+      				<th>Max Wares</th>
+      				<th>Max Tea</th>
+      			</tr>
+      			<tr>
+      				<td class="text-right">{{totals.food}}</td>
+      				<td>{{totals.hemp}}</td>
+      				<td>{{totals.ceram}}</td>
+      				<td>{{totals.silk}}</td>
+      				<td>{{totals.wares}}</td>
+      				<td>{{totals.tea}}</td>
+      			</tr>
+      		</table>
+		</div>
+  		<div class="footer text-center"><button class="btn btn-primary" (click)="close()">Close</button></div>
+	</div>
+</div>

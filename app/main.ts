@@ -4,6 +4,7 @@
 import { bootstrap } 		from "angular2/platform/browser";
 import { Component } 		from "angular2/core";
 import { Injectable } 		from "angular2/core";
+import {FORM_DIRECTIVES}  from "angular2/common";
 
 import {Headquarter} 		from "./ts/services/Headquarter";
 import {PathService} 		from "./ts/services/PathService";
@@ -29,6 +30,7 @@ import {SaveMenuHolder} 	from "./ts/components/SaveMenu";
 import {TemplatesMenu} 		from "./ts/components/TemplatesMenu";
 import {Template} 			from "./ts/components/TemplatesMenu";
 import {AlertsComponent} 	from "./ts/components/AlertsComponent";
+import {StatsPanel} 	from "./ts/components/StatsPanel";
 
 //############################ APP #########################################
 
@@ -46,7 +48,7 @@ import {AlertsComponent} 	from "./ts/components/AlertsComponent";
           <ul class="nav navbar-nav">
           	<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-					New ç œ
+					New
 					<span class="caret"></span>
 				</a>
 				<ul class="dropdown-menu">
@@ -92,6 +94,7 @@ import {AlertsComponent} 	from "./ts/components/AlertsComponent";
 					<span class="caret"></span>
 				</a>
 			</li>
+			<li><a href="javascript:void(0)" (click)="showStats()">Stats</a></li>
           </ul>
         </div>
 		<current-action class="pull-right">
@@ -101,11 +104,11 @@ import {AlertsComponent} 	from "./ts/components/AlertsComponent";
 		</current-action>
       </div>
     </nav>
-	<map-container class="panel panel-primary" (click)="click($event)" (contextmenu)="click($event)" [ngClass]="{expanded: toggled, collapsed: !toggled}">
+	<map-container [hidden]="display != 'map'" class="panel panel-primary" (click)="click($event)" (contextmenu)="click($event)" [ngClass]="{expanded: toggled, collapsed: !toggled}">
 		<alerts-holder></alerts-holder>
 	</map-container>
 	
-	<build-menu *ngIf="getLines().length > 0" [ngClass]="{expanded: toggled, collapsed: !toggled}">
+	<build-menu [hidden]="display != 'map'" *ngIf="getLines().length > 0" [ngClass]="{expanded: toggled, collapsed: !toggled}">
 		<collapse-button>
 			<button *ngIf="!toggled" class="btn btn-primary btn-xs glyphicon glyphicon-backward" (click)="toggle()"></button>
 		</collapse-button>
@@ -117,6 +120,7 @@ import {AlertsComponent} 	from "./ts/components/AlertsComponent";
 			<build-accordion></build-accordion>
 		</div>
 	</build-menu>
+	<stats-panel *ngIf="display == 'stats'" (onClose)="display='map'"></stats-panel>
 	<service-loader></service-loader>
 	<context-menu-holder></context-menu-holder>
 	<save-menu-holder></save-menu-holder>
@@ -124,7 +128,7 @@ import {AlertsComponent} 	from "./ts/components/AlertsComponent";
 	host: {
 		'(document:keypress)': 'onKeyPress($event)'
 	},
-	directives: [MapComponent, LineComponent, BuildMenuComponent, ServiceLoader, ContextMenuHolder, SaveMenuHolder, TemplatesMenu, AlertsComponent],
+	directives: [MapComponent, LineComponent, BuildMenuComponent, ServiceLoader, ContextMenuHolder, SaveMenuHolder, TemplatesMenu, AlertsComponent, StatsPanel],
 	providers : [ProgressiveLoader, Renderer, Headquarter, PathService, BuildService, DeleteService, SplashService, SelectService, CopyService, MoveService, CopyAndRotateService]
 }
 )
@@ -136,9 +140,11 @@ class mainApp {
 	currentAction : string;
 	currentMessage : string;
 	templates : Array<{name:string, content:Line[]}>;
+	display:string;
 	
 	constructor(public renderer: Renderer, public HQ :Headquarter){
 		this.toggled = false;
+		this.display="map";
 		this.file = null;
 		this.currentAction = "";
 		this.currentMessage = "";
@@ -184,6 +190,9 @@ class mainApp {
 		this.HQ.alertNavbarEvent("SaveMenu", format);
 	}
 
+	showStats(){
+		this.display = 'stats';
+	}
 	//events
 	
 	onKeyPress($event){
@@ -246,4 +255,4 @@ class mainApp {
 	}
 }
 
-bootstrap(mainApp);
+bootstrap(mainApp, [FORM_DIRECTIVES]);

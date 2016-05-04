@@ -43,6 +43,7 @@ System.register(["angular2/core", 'rxjs/Subject'], function(exports_1, context_1
                     this.saveMenuOpen$ = this._saveMenuSource.asObservable();
                     this.defaultService = null;
                     this.detectKeyPress = false;
+                    this.buildingStorage = [];
                 }
                 Headquarter.prototype.reset = function () {
                     this._globalEventSource.next("reset");
@@ -107,6 +108,9 @@ System.register(["angular2/core", 'rxjs/Subject'], function(exports_1, context_1
                     else {
                         this._currentActionSource.next("Building " + item.longLabel);
                     }
+                };
+                Headquarter.prototype.broadcastBuildingList = function (buildings) {
+                    this.buildingStorage = buildings;
                 };
                 Headquarter.prototype.keyPress = function ($event) {
                     if (!this.detectKeyPress) {

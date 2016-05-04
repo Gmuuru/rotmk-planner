@@ -10,10 +10,12 @@ export class Headquarter {
 	currentService : Service;
 	defaultService : Service;
 	detectKeyPress : boolean;
+	buildingStorage: any;
 
 	constructor(){
 		this.defaultService = null;
 		this.detectKeyPress = false;
+		this.buildingStorage = [];
 	}
 
 	private _alertSource = new Subject<Error>();
@@ -105,6 +107,10 @@ export class Headquarter {
 		} else {
 			this._currentActionSource.next(`Building ${item.longLabel}`);
 		}
+	}
+
+	broadcastBuildingList(buildings){
+		this.buildingStorage=buildings;
 	}
 	
 	keyPress($event){

@@ -63,6 +63,7 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                                     break;
                                 }
                             }
+                            _this.HQ.broadcastBuildingList(_this.buildings);
                         }
                         catch (err) {
                             _this.HQ.log(err);
