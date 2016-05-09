@@ -33,7 +33,6 @@ export class SelectService extends GenericService {
 	}
 	
 	init( args? : string[] ) :void {
-		this.highlightedCells = [];
 		console.log(`SelectService initialized`);
 	}
 	

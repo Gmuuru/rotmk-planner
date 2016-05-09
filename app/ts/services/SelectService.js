@@ -37,7 +37,6 @@ System.register(['rxjs/Subject', "./GenericService"], function(exports_1, contex
                     this.init();
                 }
                 SelectService.prototype.init = function (args) {
-                    this.highlightedCells = [];
                     console.log("SelectService initialized");
                 };
                 SelectService.prototype.alertCellMouseEvent = function ($event, action, cell) {

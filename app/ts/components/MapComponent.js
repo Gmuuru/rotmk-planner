@@ -43,12 +43,6 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                     this.HQ = HQ;
                     this.selectService = selectService;
                     this.mapSize = { width: 0, height: 0 };
-                    this.defaultBounds = {
-                        'x': 0,
-                        'y': 0,
-                        'width': 0,
-                        'height': 0
-                    };
                     this.reset();
                     this.renderer.reset$.subscribe(function (inq) {
                         _this.reset();
@@ -86,13 +80,13 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                             var shape = inputData.shape;
                             _this.handleBuildingsHighlight(cells);
                             if (action == "highlight") {
-                                _this.highlightZone(cells, shape);
+                                _this.PIXIHelper.highlightZone(cells, shape);
                             }
                             else if (action == "remove") {
-                                _this.removeHighlight(cells);
+                                _this.PIXIHelper.removeHighlight(cells);
                             }
                             else if (action == "select") {
-                                _this.selectZone(cells);
+                                _this.PIXIHelper.selectZone(cells);
                             }
                         }
                         catch (err) {
@@ -115,17 +109,21 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                 MapComponent.prototype.reset = function () {
                     this.buildings = {};
                     this.currentPosition = "";
-                    this.resetZones();
+                    if (this.PIXIHelper) {
+                        this.PIXIHelper.resetZones();
+                    }
                 };
-                MapComponent.prototype.resetZones = function () {
-                    if (this.selectArea) {
-                        this.setSpriteBounds(this.selectArea, null, null);
+                MapComponent.prototype.insertUpdateBuilding = function (cell) {
+                    var position = this.cellPosition(cell);
+                    var sprite = this.buildings[position];
+                    if (sprite) {
+                        this.PIXIHelper.updateBuilding(sprite, cell);
                     }
-                    if (this.hlArea) {
-                        this.setSpriteBounds(this.hlArea, null, null);
-                    }
-                    if (this.hlSubArea) {
-                        this.setSpriteBounds(this.hlSubArea, null, null);
+                    else {
+                        var sprite = this.PIXIHelper.createBuilding(cell);
+                        if (sprite) {
+                            this.buildings[position] = sprite;
+                        }
                     }
                 };
                 MapComponent.prototype.handleBuildingsHighlight = function (cells) {
@@ -138,38 +136,21 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                     if (this.selectedCells) {
                         this.selectedCells.forEach(function (cell) {
                             if (_this.buildings[_this.cellPosition(cell)]) {
-                                _this.updateSpriteTint(_this.buildings[_this.cellPosition(cell)], blankCell);
+                                _this.PIXIHelper.updateSpriteTint(_this.buildings[_this.cellPosition(cell)], blankCell);
                             }
                             else if (cell.ref && _this.buildings[_this.cellPosition(cell.ref)]) {
-                                _this.updateSpriteTint(_this.buildings[_this.cellPosition(cell.ref)], blankCell);
+                                _this.PIXIHelper.updateSpriteTint(_this.buildings[_this.cellPosition(cell.ref)], blankCell);
                             }
                         });
                     }
                     cells.forEach(function (cell) {
                         if (_this.buildings[_this.cellPosition(cell)]) {
-                            _this.updateSpriteTint(_this.buildings[_this.cellPosition(cell)], cell);
+                            _this.PIXIHelper.updateSpriteTint(_this.buildings[_this.cellPosition(cell)], cell);
                         }
                         else if (cell.ref && _this.buildings[_this.cellPosition(cell.ref)]) {
-                            _this.updateSpriteTint(_this.buildings[_this.cellPosition(cell.ref)], cell);
+                            _this.PIXIHelper.updateSpriteTint(_this.buildings[_this.cellPosition(cell.ref)], cell);
                         }
                     });
-                };
-                MapComponent.prototype.selectZone = function (cells) {
-                    this.setSpriteBounds(this.selectArea, cells, "");
-                };
-                MapComponent.prototype.highlightZone = function (cells, shape) {
-                    if (!cells || cells.length == 0) {
-                        return;
-                    }
-                    if (shape == 'square') {
-                        this.setSpriteBounds(this.hlArea, cells, shape);
-                    }
-                    else if (shape == 'path') {
-                        this.setPathBounds(cells, shape);
-                    }
-                };
-                MapComponent.prototype.removeHighlight = function (cells) {
-                    this.resetZones();
                 };
                 MapComponent.prototype.onMouseMove = function (mouseEvent) {
                     var originalEvent = mouseEvent.data.originalEvent;
@@ -201,7 +182,7 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                     }
                 };
                 MapComponent.prototype.rightClick = function ($event) {
-                    if (!this.isInSprite(this.selectArea, $event)) {
+                    if (!this.isInSprite(this.PIXIHelper.getSelectArea(), $event)) {
                         var cell = this.getCurrentCellFromMousePos($event);
                         this.HQ.alertMainMouseEvent($event, "click");
                         $event.preventDefault();
@@ -219,191 +200,25 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                     this.cleanPreviousStage();
                     this.mapSize.width = this.getMapWidth(lines);
                     this.mapSize.height = this.getMapHeight(lines);
-                    this.PIXIRenderer = PIXIHelper_1.PIXIHelper.createPIXIRenderer(this.map.nativeElement, this.mapSize.width, this.mapSize.height);
-                    var background = PIXIHelper_1.PIXIHelper.createBackground(this.PIXIRenderer.width, this.PIXIRenderer.height, {
-                        image: 'grass',
-                        width: 16,
-                        height: 16
-                    });
+                    this.PIXIHelper = new PIXIHelper_1.PIXIHelper();
+                    this.PIXIHelper.initPIXICanvas(this.map.nativeElement, this.mapSize.width, this.mapSize.height);
+                    var background = this.PIXIHelper.loadCanvasBackground();
                     background.on('mousemove', this.onMouseMove.bind(this));
                     background.on('mousedown', this.mouseDown.bind(this));
                     background.on('mouseup', this.mouseUp.bind(this));
-                    //create the stage
-                    this.stage = PIXIHelper_1.PIXIHelper.loadStage(this.PIXIRenderer);
-                    this.stage.addChild(background);
-                    this.hlArea = this.createHighlightSprite();
-                    this.hlSubArea = this.createHighlightSprite();
-                    this.selectArea = this.createSelectSprite();
-                    this.stage.addChild(this.hlArea);
-                    this.stage.addChild(this.hlSubArea);
-                    this.stage.addChild(this.selectArea);
+                    this.PIXIHelper.initHLZones();
                 };
                 MapComponent.prototype.cleanPreviousStage = function () {
                     while (this.map.nativeElement.firstChild) {
                         this.map.nativeElement.removeChild(this.map.nativeElement.firstChild);
                     }
                 };
-                MapComponent.prototype.createHighlightSprite = function () {
-                    var sprite = new PIXI.extras.TilingSprite(PIXIHelper_1.PIXIHelper.getTexture("grass"), 16, 16);
-                    sprite.tint = 0x33DD33;
-                    sprite.alpha = 0.5;
-                    this.setSpriteBounds(sprite, null, null);
-                    return sprite;
-                };
-                MapComponent.prototype.createSelectSprite = function () {
-                    var sprite = new PIXI.extras.TilingSprite(PIXIHelper_1.PIXIHelper.getTexture("blank"), 16, 16);
-                    sprite.tint = 0xCCCCEE;
-                    sprite.alpha = 0.5;
-                    this.setSpriteBounds(sprite, null, null);
-                    return sprite;
-                };
-                MapComponent.prototype.setSpriteBounds = function (sprite, cells, shape) {
-                    var bounds = null;
-                    var orientation = null;
-                    if (cells) {
-                        bounds = this.squareArea(cells);
-                        orientation = cells[0].hlOrientation;
-                    }
-                    else {
-                        bounds = this.defaultBounds;
-                    }
-                    this.setBounds(sprite, bounds);
-                    this.setOrientation(sprite, orientation);
-                };
-                MapComponent.prototype.setPathBounds = function (cells, shape) {
-                    if (cells) {
-                        var cellArrays = this.pathArea(cells);
-                        this.setBounds(this.hlArea, this.squareArea(cellArrays.main));
-                        this.setBounds(this.hlSubArea, this.squareArea(cellArrays.sub));
-                    }
-                    else {
-                        this.setBounds(this.hlArea, this.defaultBounds);
-                        this.setBounds(this.hlSubArea, this.defaultBounds);
-                    }
-                };
-                MapComponent.prototype.setBounds = function (sprite, bounds) {
-                    sprite.position.x = bounds.x;
-                    sprite.position.y = bounds.y;
-                    sprite.width = bounds.width;
-                    sprite.height = bounds.height;
-                };
-                MapComponent.prototype.squareArea = function (cells) {
-                    if (!cells || cells.length == 0) {
-                        return this.defaultBounds;
-                    }
-                    var height = (cells[cells.length - 1].lineIndex - cells[0].lineIndex + 1) * 16;
-                    var width = (cells[cells.length - 1].colIndex - cells[0].colIndex + 1) * 16;
-                    var obj = {
-                        'y': cells[0].lineIndex * 16,
-                        'x': cells[0].colIndex * 16,
-                        'width': width,
-                        'height': height
-                    };
-                    return obj;
-                };
-                MapComponent.prototype.pathArea = function (cells) {
-                    var mainCells = [];
-                    var subCells = [];
-                    var horizontalLineIndex = null;
-                    var verticalColIndex = null;
-                    cells.forEach(function (cell) {
-                        if (!horizontalLineIndex) {
-                            horizontalLineIndex = cell.lineIndex;
-                        }
-                        if (!verticalColIndex) {
-                            verticalColIndex = cell.colIndex;
-                        }
-                        if (cell.lineIndex == horizontalLineIndex || cell.colIndex == verticalColIndex) {
-                            mainCells.push(cell);
-                        }
-                        else {
-                            subCells.push(cell);
-                        }
-                    });
-                    mainCells.sort(function (a, b) {
-                        if (a.lineIndex == b.lineIndex) {
-                            return a.colIndex - b.colIndex;
-                        }
-                        return a.lineIndex - b.lineIndex;
-                    });
-                    subCells.sort(function (a, b) {
-                        if (a.lineIndex == b.lineIndex) {
-                            return a.colIndex - b.colIndex;
-                        }
-                        return a.lineIndex - b.lineIndex;
-                    });
-                    return { main: mainCells, sub: subCells };
-                };
-                MapComponent.prototype.setOrientation = function (sprite, orientation) {
-                    if (!orientation) {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture("grass");
-                    }
-                    if (orientation == 'v' || orientation == 'n') {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture("arrow-top");
-                    }
-                    else if (orientation == 'h' || orientation == 'e') {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture("arrow-right");
-                    }
-                    else if (orientation == 's') {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture("arrow-down");
-                    }
-                    else if (orientation == 'w') {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture("arrow-left");
-                    }
-                };
-                MapComponent.prototype.insertUpdateBuilding = function (cell) {
-                    var position = this.cellPosition(cell);
-                    var sprite = this.buildings[position];
-                    if (sprite) {
-                        this.updateSprite(sprite, cell);
-                    }
-                    else {
-                        var sprite = this.createSprite(cell);
-                        if (sprite) {
-                            this.stage.addChild(sprite);
-                            this.buildings[position] = sprite;
-                        }
-                    }
-                };
                 MapComponent.prototype.deleteBuilding = function (cell) {
                     var position = this.cellPosition(cell);
                     var sprite = this.buildings[position];
                     if (sprite) {
-                        this.stage.removeChild(sprite);
+                        this.PIXIHelper.deleteBuilding(sprite);
                         delete this.buildings[position];
-                    }
-                };
-                MapComponent.prototype.createSprite = function (cell) {
-                    if (cell.getBuilding()) {
-                        var sprite = new PIXI.Sprite(PIXIHelper_1.PIXIHelper.getTexture(cell.getBuilding().name));
-                        sprite.position.x = cell.colIndex * 16;
-                        sprite.position.y = cell.lineIndex * 16;
-                        sprite.width = cell.getBuilding().width * 16;
-                        sprite.height = cell.getBuilding().height * 16;
-                        sprite.char = cell.getBuilding().char;
-                        return sprite;
-                    }
-                };
-                MapComponent.prototype.updateSprite = function (sprite, cell) {
-                    if (cell.getBuilding()) {
-                        sprite.texture = PIXIHelper_1.PIXIHelper.getTexture(cell.getBuilding().name);
-                        sprite.position.x = cell.colIndex * 16;
-                        sprite.position.y = cell.lineIndex * 16;
-                        sprite.width = cell.getBuilding().width * 16;
-                        sprite.height = cell.getBuilding().height * 16;
-                        sprite.char = cell.getBuilding().char;
-                        this.updateSpriteTint(sprite, cell);
-                    }
-                };
-                MapComponent.prototype.updateSpriteTint = function (sprite, cell) {
-                    if (cell.hl == 'green') {
-                        sprite.tint = 0x33DD33;
-                    }
-                    else if (cell.hl == 'red') {
-                        sprite.tint = 0xDD3333;
-                    }
-                    else {
-                        sprite.tint = 0xFFFFFF;
                     }
                 };
                 MapComponent.prototype.getMapWidth = function (lines) {
