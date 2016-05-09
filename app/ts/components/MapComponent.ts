@@ -95,6 +95,7 @@ export class MapComponent {
 			($event) => {
 				try {
 					if($event.type=="mouseup"){
+						this.cleanSelectZone();
 						this.selectedCells = this.selectService.highlightedCells;
 					}
 				} catch (err) {
@@ -127,13 +128,7 @@ export class MapComponent {
 		}
 	}
 
-	
-
-	handleBuildingsHighlight(cells:Cell[]){
-
-		if(!cells || cells.length == 0){
-			return;
-		}
+	cleanSelectZone(){
 		var blankCell = new Cell(0,0," ");
 
 		//reseting selected buildings
@@ -147,6 +142,15 @@ export class MapComponent {
 					}
 				}
 			);
+		}
+	}
+
+	handleBuildingsHighlight(cells:Cell[]){
+
+		this.cleanSelectZone();
+
+		if(!cells || cells.length == 0){
+			return;
 		}
 
 		cells.forEach(

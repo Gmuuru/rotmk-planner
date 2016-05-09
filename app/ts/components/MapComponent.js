@@ -97,6 +97,7 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                     this.selectService.selectChange$.subscribe(function ($event) {
                         try {
                             if ($event.type == "mouseup") {
+                                _this.cleanSelectZone();
                                 _this.selectedCells = _this.selectService.highlightedCells;
                             }
                         }
@@ -126,11 +127,8 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                         }
                     }
                 };
-                MapComponent.prototype.handleBuildingsHighlight = function (cells) {
+                MapComponent.prototype.cleanSelectZone = function () {
                     var _this = this;
-                    if (!cells || cells.length == 0) {
-                        return;
-                    }
                     var blankCell = new Cell_1.Cell(0, 0, " ");
                     //reseting selected buildings
                     if (this.selectedCells) {
@@ -142,6 +140,13 @@ System.register(["angular2/core", "../services/Headquarter", "../services/Select
                                 _this.PIXIHelper.updateSpriteTint(_this.buildings[_this.cellPosition(cell.ref)], blankCell);
                             }
                         });
+                    }
+                };
+                MapComponent.prototype.handleBuildingsHighlight = function (cells) {
+                    var _this = this;
+                    this.cleanSelectZone();
+                    if (!cells || cells.length == 0) {
+                        return;
                     }
                     cells.forEach(function (cell) {
                         if (_this.buildings[_this.cellPosition(cell)]) {
