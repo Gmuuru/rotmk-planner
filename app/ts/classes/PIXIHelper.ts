@@ -12,6 +12,7 @@ export class PIXIHelper {
 	hlArea:any;
 	hlSubArea:any;
 	selectArea:any;
+	tooltip:any;
 
 	defaultBounds:any = {
 			'x': 0,
@@ -247,12 +248,13 @@ export class PIXIHelper {
 	}
 
 	selectZone(cells:Cell[]){
+		this.killTooltip();
 		this.setSpriteBounds(this.selectArea, cells, "");
 	}
 
 
 	highlightZone(cells:Cell[], shape:string){
-
+		this.killTooltip();
 		if(!cells || cells.length == 0){
 			return;
 		}
@@ -269,6 +271,7 @@ export class PIXIHelper {
 	}
 
 	resetZones(){
+		this.killTooltip();
 		if(this.selectArea){
 			this.setSpriteBounds(this.selectArea, null, null);
 		}
@@ -280,6 +283,44 @@ export class PIXIHelper {
 		}
 	}
 
+	killTooltip(){
+		if(this.tooltip){
+			this.stage.removeChild(this.tooltip);
+		}
+	}
+
+	displayTooltip(text:string, $event){
+
+		this.killTooltip();
+		if(!text){
+			return;
+		}
+		var mousePos = this.getMousePosition($event);
+
+		var positionX =  mousePos.x + 5;
+		var positionY = mousePos.y - 25;
+		this.tooltip = new PIXI.Graphics();
+		this.tooltip.lineStyle(1, 0x337ab7, 1);
+		this.tooltip.beginFill(0xFFFFFF, 1.0);
+		this.tooltip.drawRoundedRect(positionX, positionY, 15 + 10*text.length, 25, 5);
+		this.tooltip.endFill();
+		
+		var tooltipText = new PIXI.Text(text, {
+			font : '14px Arial'
+		});
+		tooltipText.x = positionX + 10;
+		tooltipText.y = positionY + 5;
+		this.tooltip.addChild(tooltipText);
+		console.log(this.tooltip.position.x, this.tooltip.position.y);
+		this.stage.addChild(this.tooltip);
+	}
+
+	getMousePosition($event){
+		var mapPos = this.parentEl.getBoundingClientRect();
+		var mousePosX = $event.clientX - mapPos.left;
+		var mousePosY = $event.clientY - mapPos.top;
+		return {x : mousePosX, y : mousePosY};
+	}
 	public getTexture(image:string){
 		if(!PIXIHelper.prototype.TEXTURES[image]){
 			PIXIHelper.prototype.TEXTURES[image] = PIXI.Texture.fromImage('img/'+image+'.gif');

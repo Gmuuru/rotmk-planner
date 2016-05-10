@@ -57,7 +57,7 @@ import {StatsPanel} 	from "./ts/components/StatsPanel";
 					<li><a href="javascript:void(0)" (click)="newMap(50,50)">Normal</a></li>
 					<li><a href="javascript:void(0)" (click)="newMap(75,75)">Big</a></li>
 					<li><a href="javascript:void(0)" (click)="newMap(90,90)">Huge</a></li>
-					<li><a href="javascript:void(0)" (click)="newMap(140,140)">Enormous</a></li>
+					<li><a href="javascript:void(0)" (click)="newMap(160,160)">Enormous</a></li>
 				</ul>
 			</li>
           	<li class="dropdown">

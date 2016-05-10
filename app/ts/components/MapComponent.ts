@@ -201,10 +201,10 @@ export class MapComponent {
 	rightClick($event){
 		if(!this.isInSprite(this.PIXIHelper.getSelectArea(), $event)){
 			var cell = this.getCurrentCellFromMousePos($event);
+			this.PIXIHelper.displayTooltip(cell.getBuilding().label, $event);
 			this.HQ.alertMainMouseEvent($event, "click");
 			$event.preventDefault();
-		} else {
-			console.log($event);
+		} else if(this.isInSprite(this.PIXIHelper.getSelectArea(), $event)){
 			this.HQ.openContextMenu($event, "select", this.selectedCells);
 			$event.preventDefault();
 		}

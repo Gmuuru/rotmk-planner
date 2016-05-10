@@ -207,9 +207,11 @@ System.register([], function(exports_1, context_1) {
                     return sprite;
                 };
                 PIXIHelper.prototype.selectZone = function (cells) {
+                    this.killTooltip();
                     this.setSpriteBounds(this.selectArea, cells, "");
                 };
                 PIXIHelper.prototype.highlightZone = function (cells, shape) {
+                    this.killTooltip();
                     if (!cells || cells.length == 0) {
                         return;
                     }
@@ -224,6 +226,7 @@ System.register([], function(exports_1, context_1) {
                     this.resetZones();
                 };
                 PIXIHelper.prototype.resetZones = function () {
+                    this.killTooltip();
                     if (this.selectArea) {
                         this.setSpriteBounds(this.selectArea, null, null);
                     }
@@ -233,6 +236,39 @@ System.register([], function(exports_1, context_1) {
                     if (this.hlSubArea) {
                         this.setSpriteBounds(this.hlSubArea, null, null);
                     }
+                };
+                PIXIHelper.prototype.killTooltip = function () {
+                    if (this.tooltip) {
+                        this.stage.removeChild(this.tooltip);
+                    }
+                };
+                PIXIHelper.prototype.displayTooltip = function (text, $event) {
+                    this.killTooltip();
+                    if (!text) {
+                        return;
+                    }
+                    var mousePos = this.getMousePosition($event);
+                    var positionX = mousePos.x + 5;
+                    var positionY = mousePos.y - 25;
+                    this.tooltip = new PIXI.Graphics();
+                    this.tooltip.lineStyle(1, 0x337ab7, 1);
+                    this.tooltip.beginFill(0xFFFFFF, 1.0);
+                    this.tooltip.drawRoundedRect(positionX, positionY, 15 + 10 * text.length, 25, 5);
+                    this.tooltip.endFill();
+                    var tooltipText = new PIXI.Text(text, {
+                        font: '14px Arial'
+                    });
+                    tooltipText.x = positionX + 10;
+                    tooltipText.y = positionY + 5;
+                    this.tooltip.addChild(tooltipText);
+                    console.log(this.tooltip.position.x, this.tooltip.position.y);
+                    this.stage.addChild(this.tooltip);
+                };
+                PIXIHelper.prototype.getMousePosition = function ($event) {
+                    var mapPos = this.parentEl.getBoundingClientRect();
+                    var mousePosX = $event.clientX - mapPos.left;
+                    var mousePosY = $event.clientY - mapPos.top;
+                    return { x: mousePosX, y: mousePosY };
                 };
                 PIXIHelper.prototype.getTexture = function (image) {
                     if (!PIXIHelper.prototype.TEXTURES[image]) {
